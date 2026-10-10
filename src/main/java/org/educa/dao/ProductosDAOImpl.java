@@ -63,15 +63,34 @@ public class ProductosDAOImpl implements ProductosDAO {
         cellStyleLight.setFillForegroundColor(IndexedColors.WHITE.getIndex());
         setStyle(cellStyleLight);
 
+        CellStyle cellStyleBoldLight= workbook.createCellStyle();
+        setStyle(cellStyleBoldLight);
+        cellStyleBoldLight.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+        cellStyleBoldLight.setFont(blackFont);
+
         CellStyle cellStyleDark= workbook.createCellStyle();
         cellStyleDark.setFillForegroundColor(IndexedColors.BRIGHT_GREEN1.getIndex());
         setStyle(cellStyleDark);
+
+        CellStyle cellStyleBoldDark= workbook.createCellStyle();
+        cellStyleBoldDark.setFillForegroundColor(IndexedColors.BRIGHT_GREEN1.getIndex());
+        setStyle(cellStyleBoldDark);
+        cellStyleBoldDark.setFont(blackFont);
+
+        Row rowHeader= sheet.createRow(0);
+        String[] headers = {"Codigo", "NumSerie", "Precio", "Descuento", "Precio F.", "Costes envio",
+                "Costes almacenaje", "Beneficio"};
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = rowHeader.createCell(i);
+            cell.setCellValue(headers[i]);
+            cell.setCellStyle(cellStyleBoldLight);
+        }
 
 
         int rowIndex = 1;
         for (ProductoEntity productoEntity : productoEntities) {
             Object[] columns={
-                productoEntity.getProducto().getCodigo(),
+                    productoEntity.getProducto().getCodigo(),
                     productoEntity.getProducto().getNumeroSerie(),
                     productoEntity.getProducto().getPrecio().doubleValue()+ "%",
                     productoEntity.getPrecioFinal().doubleValue(),
@@ -86,10 +105,12 @@ public class ProductosDAOImpl implements ProductosDAO {
                 Cell cell=row.createCell(i);
                 cell.setCellValue(columns[i].toString());
                 if(rowIndex%2==0){
-                    cell.setCellStyle(cellStyleDark);
+                    CellStyle cellStyle= i==0 ? cellStyleBoldDark : cellStyleDark;
+                    cell.setCellStyle(cellStyle);
                 }
                 else {
-                    cell.setCellStyle(cellStyleLight);
+                    CellStyle cellStyle= i==0 ? cellStyleBoldLight : cellStyleLight;
+                    cell.setCellStyle(cellStyle);
                 }
             }
         }
