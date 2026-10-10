@@ -24,6 +24,12 @@ import java.util.List;
 public class ProductoService {
 
     private final ProductosDAO productosDAO = new ProductosDAOImpl();
+    /**
+     * Read XML file and show information of every product
+     * @param fileXml XML file path
+     * @return information of every product
+     * @throws JAXBException if occurs an error procesing XML file
+     */
 
     public List<ProductoEntity> readFile(String fileXml) throws JAXBException {
         //TODO: Implementar
@@ -53,6 +59,13 @@ public class ProductoService {
 
         return listado;
     }
+    /**
+     * Generate a file with the products information
+     * @param path destiny directory where the file will be saved
+     * @param fileXml XML file path
+     * @throws JAXBException if occurs an error procesing XML file
+     * @throws IOException if an error occurs while creating the file
+     */
 
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
         //TODO: Implementar
@@ -87,7 +100,14 @@ public class ProductoService {
         writer.print(summaryEntity.toPrint());
         writer.close();
     }
-
+    /**
+     * Reads and processes the XML data and exports it to an .XLSX file
+     * @param path folder path
+     * @param fileXml XML file path
+     * @throws JAXBException if an error occurs while processing the XML file
+     * @throws IOException if an error occurs while creating the file
+     * @throws ParseException if an error occurs while parsing the numeric or text data
+     */
     public void exportExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {
         //TODO: Implementar
         List<ProductoEntity> listado=readFile(fileXml);
