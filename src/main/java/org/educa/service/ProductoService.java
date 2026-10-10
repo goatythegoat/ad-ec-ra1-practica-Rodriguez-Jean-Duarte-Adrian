@@ -5,6 +5,7 @@ import generated.Producto;
 import generated.Productos;
 import jakarta.xml.bind.JAXBException;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
+import org.apache.poi.ss.usermodel.Row;
 import org.educa.dao.ProductosDAO;
 import org.educa.dao.ProductosDAOImpl;
 import org.educa.entity.ProductoEntity;
@@ -89,5 +90,8 @@ public class ProductoService {
 
     public void exportExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {
         //TODO: Implementar
+        List<ProductoEntity> listado=readFile(fileXml);
+        productosDAO.exportExcel(path, fileXml, listado);
+
     }
 }
