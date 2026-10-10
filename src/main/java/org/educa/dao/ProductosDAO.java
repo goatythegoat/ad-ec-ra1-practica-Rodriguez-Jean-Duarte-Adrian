@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface ProductosDAO {
     Productos readFile(File xml) throws JAXBException;
-    public void exportSummary(String path, List<ProductoEntity> listado) throws IOException;
+    void exportSummary(String path) throws IOException;
     void exportExcel (String path, String fileXml);
 }

@@ -26,7 +26,9 @@ public class ProductosDAOImpl implements ProductosDAO {
     }
 
     @Override
-    public void exportSummary(String path, List<ProductoEntity> listado) throws IOException {
+    public void exportSummary(String path) throws IOException {
+        File carpeta=new File(path);
+        carpeta.mkdir();
     }
 
     @Override

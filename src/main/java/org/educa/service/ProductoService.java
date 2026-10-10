@@ -55,6 +55,24 @@ public class ProductoService {
 
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
         //TODO: Implementar
+
+        List<ProductoEntity> listado=readFile(fileXml);
+        productosDAO.exportSummary(path);
+        File xmlFile=new File(fileXml);
+
+        SummaryEntity summaryEntity=new SummaryEntity();
+        String[] fileName=fileXml.split("/");
+        BigDecimal sum=BigDecimal.valueOf(0);
+        int numProductos=0;
+
+        String[] partesExtension=fileName[4].split("\\.");
+        String[] partesTotal=partesExtension[0].split("_");
+
+        for(ProductoEntity productoEntity: listado){
+            sum=sum.add(productoEntity.getProfit());
+            numProductos++;
+
+        }
     }
 
     public void exportExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {
