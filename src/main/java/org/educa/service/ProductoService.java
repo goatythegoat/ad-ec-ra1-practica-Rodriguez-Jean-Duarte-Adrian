@@ -73,6 +73,18 @@ public class ProductoService {
             numProductos++;
 
         }
+        summaryEntity.setName(partesTotal[1]);
+        summaryEntity.setFileName(partesExtension[0]);
+        summaryEntity.setNumberOfProducts(numProductos);
+        summaryEntity.setTotalProfit(sum);
+        summaryEntity.setFileAbsolutePath(xmlFile.getAbsolutePath());
+        summaryEntity.setFileSize(xmlFile.length());
+
+        File txt=new File(path + "result_"+partesExtension[0]+".txt");
+        PrintWriter writer=new PrintWriter(txt);
+        txt.createNewFile();
+        writer.print(summaryEntity.toPrint());
+        writer.close();
     }
 
     public void exportExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {
