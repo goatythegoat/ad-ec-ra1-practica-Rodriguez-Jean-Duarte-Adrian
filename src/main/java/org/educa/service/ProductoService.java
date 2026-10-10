@@ -35,6 +35,21 @@ public class ProductoService {
         BigDecimal descuento;
         BigDecimal resta;
 
+        for (Producto producto : productos.getProducto()) {
+            ProductoEntity productoEntity = new ProductoEntity();
+            productoEntity.setProducto(producto);
+            descuento = producto.getDescuento();
+            resta = (producto.getPrecio().multiply(descuento)).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+            precioFinal = (producto.getPrecio().subtract(resta));
+            productoEntity.setPrecioFinal(precioFinal);
+            coste = producto.getCostes().getCostesAlmacenaje().add(producto.getCostes().getCostesEnvio());
+            productoEntity.setCost(coste);
+            beneficio = precioFinal.subtract(coste);
+            productoEntity.setProfit(beneficio);
+
+            listado.add(productoEntity);
+        }
+
         return listado;
     }
 
