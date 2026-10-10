@@ -28,7 +28,9 @@ public class ProductosDAOImpl implements ProductosDAO {
     @Override
     public void exportSummary(String path) throws IOException {
         File carpeta=new File(path);
-        carpeta.mkdir();
+        if(!carpeta.exists()){
+            carpeta.mkdir();
+        }
     }
 
     private void setStyle(CellStyle cellStyle){
@@ -51,6 +53,11 @@ public class ProductosDAOImpl implements ProductosDAO {
     public void exportExcel(String path, String fileXml, List<ProductoEntity> productoEntities) throws IOException, JAXBException {
         String[] fileName=fileXml.split("/");
         String[] partesExtension=fileName[4].split("\\.");
+
+        File carpeta=new File(path);
+        if(!carpeta.exists()){
+            carpeta.mkdir();
+        }
 
         Workbook workbook=new XSSFWorkbook();
         Sheet sheet=workbook.createSheet("export");
